@@ -46,9 +46,9 @@ fn comma_sep<T>(
 impl Display for Value {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> Result {
         match self {
-            Value::Boolean(boolean) => write!(formatter, "{}", boolean),
-            Value::Number(number) => write!(formatter, "{}", number),
-            Value::String(string) => write!(formatter, "\"{}\"", string),
+            Value::Boolean(boolean) => write!(formatter, "{boolean}"),
+            Value::Number(number) => write!(formatter, "{number}"),
+            Value::String(string) => write!(formatter, "\"{string}\""),
             Value::Array(values) => {
                 formatter.write_str("[")?;
                 comma_sep(&values[..], formatter, |formatter, v| v.fmt(formatter))?;
@@ -119,7 +119,7 @@ impl Display for TargetSpec {
         formatter.write_str("{\n")?;
         if let [ref rest @ .., ref last] = self.0[..] {
             for (key, value) in rest {
-                write!(formatter, "    \"{}\": {},\n", key, value)?;
+                write!(formatter, "    \"{key}\": {value},\n")?;
             }
             write!(formatter, "    \"{}\": {}\n", last.0, last.1)?;
         }
@@ -244,5 +244,5 @@ fn main() {
         ts.push("target-endian", "big");
     }
 
-    println!("{}", ts);
+    println!("{ts}");
 }

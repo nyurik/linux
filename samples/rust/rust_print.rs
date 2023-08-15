@@ -22,10 +22,10 @@ fn arc_print() -> Result {
     let b = UniqueArc::new("hello, world", GFP_KERNEL)?;
 
     // Prints the value of data in `a`.
-    pr_info!("{}", a);
+    pr_info!("{a}");
 
     // Uses ":?" to print debug fmt of `b`.
-    pr_info!("{:?}", b);
+    pr_info!("{b:?}");
 
     let a: Arc<&str> = b.into();
     let c = a.clone();
@@ -34,7 +34,7 @@ fn arc_print() -> Result {
     dbg!(c);
 
     // Pretty-prints the debug formatting with lower-case hexadecimal integers.
-    pr_info!("{:#x?}", a);
+    pr_info!("{a:#x?}");
 
     Ok(())
 }
